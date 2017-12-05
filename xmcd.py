@@ -4,7 +4,9 @@ exec python "$0" ${1+"$@"}
 """
 __doc__ = """The above defines the script's __doc__ string. \
              You can fix it by like this."""
+#coding:utf-8
 # -*- coding: utf-8 -*-
+# vim:fileencoding=utf-8
 
 import argparse
 import configparser
@@ -26,7 +28,8 @@ class Xas:
         param = np.array([])  # type: float[param]
         cov = np.array([])  # type: float[cov]
         fit_preedge = np.array([])  # type: float[fit_preedge]
-
+ 
+        print(filename)
         self.ene, self.i0, self.i1 = self._loaddat_pf(filename)
         self.mu = self.i1 / self.i0 # normalize by I0
         self.energy = elem.get_energy()
@@ -406,9 +409,9 @@ def main(filenames, configfile):
             datafile = [line.rstrip('\r\n') for line in f]
 
             xmcd = Xmcd(cfg, datafile, elem)
-#            xmcd.calc()
-#            xmcd.calc_moment()
-#            xmcd.plot()
+            xmcd.calc()
+            xmcd.calc_moment()
+            xmcd.plot()
 
 
 if __name__ == '__main__':
