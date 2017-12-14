@@ -29,7 +29,6 @@ class Xas:
         cov = np.array([])  # type: float[cov]
         fit_preedge = np.array([])  # type: float[fit_preedge]
 
-        print(filename)
         self.ene, self.i0, self.i1 = self._loaddat_pf(filename)
         self.mu = self.i1 / self.i0 # normalize by I0
         start = round(self.ene[0])
@@ -38,8 +37,16 @@ class Xas:
         self.energy = np.linspace(start, stop, num, endpoint=True)
         self.mui = self._interpolate()
         self.e0 = self._find_e0()
+
+        print(self.e0)
         
 #        self.fit_preedge = self._preedgefitting(elem.get_preedgemask())
+
+    def getelem(self):
+        return self.elem
+
+    def setelem(self, elem):
+        self.elem = elem
 
     def _loaddat_pf(self, filename):
         """
@@ -52,9 +59,10 @@ class Xas:
                                  kind="quadratic", fill_value="extrapolate")
         return f(self.energy)
 
-    def _preedgefitting(self, mask):
+    def fitting_preedge(self):
         """ pre-edge fitting with linear function """
-        return np.poly1d(np.polyfit(self.energy[mask], self.mui[mask], 2))(self.energy)
+        mask = self.elem.get_preedgemask()
+        self.fit_preedge = np.poly1d(np.polyfit(self.energy[mask], self.mui[mask], 2))(self.energy)
 
     def _find_e0(self):
         """
