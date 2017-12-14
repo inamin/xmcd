@@ -2,6 +2,9 @@
 ====
 Overview
 
+Xmcd.py plots x-ray absorption spectra (XAS), analyzes x-ray magnetic circular dichroism(XM
+CD) data measured at BL-16, Photon Factory in KEK, and calculates magnetic moments.
+
 ## Description
 
 ## Demo
